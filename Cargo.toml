@@ -3,7 +3,7 @@ name = "code-brute-forcer"
 version = "0.1.0"
 edition = "2021"
 authors = ["frankcai <frankcai@gmx.de>"]
-description = "Tool to brute force possible codes from a given code where some places are missing"
+description = "Tool to brute force possible codes from a given code where some characters are missing"
 license = "MIT"
 
 [dependencies]
