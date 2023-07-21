@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'code-brute-forcer'",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=code-brute-forcer",
+          "--package=code-brute-forcer"
+        ],
+        "filter": {
+          "name": "code-brute-forcer",
+          "kind": "bin"
+        }
+      },
+      "args": [
+        "443kop3?23?d",
+        "?:ab",
+        "?:xy"
+      ],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
