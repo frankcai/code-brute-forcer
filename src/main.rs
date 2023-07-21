@@ -59,3 +59,60 @@ fn main() {
         println!("{}", gen_code);
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_generate_codes_single_char() {
+        let replacements = vec![('?', vec!['1', '2'])];
+        let mut generated_codes = generate_codes("abc?def", &replacements);
+        let mut expected_codes = vec!["abc1def", "abc2def"];
+        generated_codes.sort();
+        expected_codes.sort();
+        assert_eq!(generated_codes, expected_codes);
+    }
+
+    #[test]
+    fn test_generate_codes_multiple_chars() {
+        let replacements = vec![('?', vec!['1', '2']), ('*', vec!['3', '4'])];
+        let mut generated_codes = generate_codes("abc?def*ghi", &replacements);
+        let mut expected_codes = vec!["abc1def3ghi", "abc2def3ghi", "abc1def4ghi", "abc2def4ghi"];
+        generated_codes.sort();
+        expected_codes.sort();
+        assert_eq!(generated_codes, expected_codes);
+    }
+
+    #[test]
+    fn test_generate_codes_repeated_char() {
+        let replacements = vec![('?', vec!['1', '2']), ('?', vec!['1', '2'])];
+        let mut generated_codes = generate_codes("abc??def", &replacements);
+        let mut expected_codes = vec!["abc11def", "abc12def", "abc21def", "abc22def"];
+        generated_codes.sort();
+        expected_codes.sort();
+        assert_eq!(generated_codes, expected_codes);
+    }
+
+    #[test]
+    fn test_generate_codes_repeated_char_different() {
+        let replacements = vec![('?', vec!['a', 'b']), ('?', vec!['x', 'y'])];
+        let mut generated_codes = generate_codes("443kop3?23?d", &replacements);
+        let mut expected_codes = vec![
+            "443kop3a23xd",
+            "443kop3b23xd",
+            "443kop3a23yd",
+            "443kop3b23yd",
+        ];
+        generated_codes.sort();
+        expected_codes.sort();
+        assert_eq!(generated_codes, expected_codes);
+    }
+
+    #[test]
+    fn test_generate_codes_no_missing_chars() {
+        let replacements = vec![];
+        let generated_codes = generate_codes("abcdef", &replacements);
+        assert_eq!(generated_codes, vec!["abcdef"]);
+    }
+}
